@@ -11,6 +11,8 @@
   - [Dependencies](#dependencies)
   - [Initialization](#initialization)
 - [Usage](#usage)
+  - [Twitch](#twitch)
+  - [Bot](#bot)
 - [License](#license)
 
 ## About
@@ -50,12 +52,16 @@ npm install
 
 ## Usage
 
+### Twitch
+
 > [!IMPORTANT]
 > Mod the bot on your Twitch Chat.
 
 ```
 /mod synapsediscord
 ```
+
+### Bot
 
 > [!NOTE]
 > Start both the Twitch & Discord Bot with node.
