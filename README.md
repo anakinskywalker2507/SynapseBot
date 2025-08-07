@@ -8,15 +8,15 @@
 
 - [About](#about)
 - [Installation](#installation)
-  * [Dependencies](#dependencies)
-  * [Initialization](#initialization)
+  - [Dependencies](#dependencies)
+  - [Initialization](#initialization)
 - [Usage](#usage)
 - [License](#license)
 
 ## About
 
 > [!NOTE]
-> A Twitch App & Discord Bot that links Twich Chat with a Discord Channel 
+> A Twitch App & Discord Bot that links Twich Chat with a Discord Channel
 
 ## Installation
 
@@ -32,6 +32,7 @@
 
 > [!TIP]
 > Exemple of a `.env` file :
+
 ```env
 TWITCH_BOT_USERNAME="your-twitch-bot-username"
 TWITCH_OAUTH_TOKEN="oauth:your-twitch-oauth-token"
@@ -49,6 +50,13 @@ npm install
 
 ## Usage
 
+> [!IMPORTANT]
+> Mod the bot on your Twitch Chat.
+
+```
+/mod synapsediscord
+```
+
 > [!NOTE]
 > Start both the Twitch & Discord Bot with node.
 
@@ -57,4 +65,5 @@ node index.cjs
 ```
 
 ## Licence
+
 [MIT](https://github.com/YetAnotherMechanicusEnjoyer/SynapseBot/blob/471d506d441951272afa4067d1dc75349af5f129/LICENSE)
