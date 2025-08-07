@@ -55,7 +55,7 @@ npm install
 ### Twitch
 
 > [!IMPORTANT]
-> Mod the bot on your Twitch Chat.
+> Mod the app on your Twitch Chat.
 
 ```
 /mod your-twitch-bot-username
@@ -64,10 +64,10 @@ npm install
 ### Bot
 
 > [!NOTE]
-> Start both the Twitch & Discord Bot with node.
+> Start both the Twitch App & Discord Bot with npm.
 
 ```bash
-node index.cjs
+npm run start
 ```
 
 ## Licence
