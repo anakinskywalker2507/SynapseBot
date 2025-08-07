@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.cjs",
   "scripts": {
-    "start": "nodemon index.cjs"
+    "start": "nodemon index.cjs",
+    "test": "exit 0"
   },
   "keywords": [],
   "author": "YetAnotherMechanicusEnjoyer",
