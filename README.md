@@ -58,7 +58,7 @@ npm install
 > Mod the bot on your Twitch Chat.
 
 ```
-/mod synapsediscord
+/mod your-twitch-bot-username
 ```
 
 ### Bot
