@@ -21,9 +21,7 @@ const discordClient = new Client({
   ]
 });
 
-const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
-
 discord(discordClient, twitchClient);
-twitch(discordChannel, twitchClient);
+twitch(discordClient, twitchClient);
 
 discordClient.login(process.env.DISCORD_BOT_TOKEN);
