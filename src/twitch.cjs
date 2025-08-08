@@ -13,13 +13,17 @@ module.exports = async (discordClient, twitchClient) => {
 
   twitchClient.on('subscription', (_channel, username, _method, _message, tags) => {
     const months = tags['msg-param-cumulative-months'];
+    const streak = tags['msg-param-streak-months'];
 
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
       let subMessage = `### 🎉 A new subscriber! __\`${username}\`__ just subscribed to the channel!`;
       if (months) {
-        subMessage = `### 🎉 A new sub from __\`${username}\`__! This is their ${months} month in a row!`;
+        subMessage = `### ✨ Re-sub from __\`${username}\`__! This is their ${months} month in a row!`;
+        if (streak) {
+          subMessage += ` (Streak: ${streak} months)`;
+        }
       }
 
       discordChannel.send(subMessage)
