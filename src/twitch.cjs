@@ -75,4 +75,17 @@ module.exports = async (discordClient, twitchClient) => {
       console.error(`Error: Channel ${discordChannel} not found.`);
     }
   });
+
+  twitchClient.on('raided', (_channel, username, viewers) => {
+    const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
+
+    if (discordChannel) {
+      const raidMessage = `### 🚀 __\`${username}\`__ started a raid with __${viewers}__ viewers !`;
+
+      discordChannel.send(raidMessage)
+        .catch(error => console.error('Error relaying raid:', error));
+    } else {
+      console.error(`Error: Channel ${discordChannel} not found.`);
+    }
+  });
 }
