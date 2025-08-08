@@ -19,7 +19,7 @@ module.exports = async (discordClient, twitchClient) => {
     if (discordChannel) {
       let subMessage = `### 🎉 A new subscriber! __\`${username}\`__ just subscribed to the channel!`;
       if (months) {
-        subMessage = `### ✨ Re-sub from __\`${username}\`__! This is their ${months} month in a row!`;
+        subMessage = `### ✨ Re-sub from __\`${username}\`__!`;
         if (streak) {
           subMessage += ` (Streak: ${streak} months)`;
         }
@@ -37,18 +37,13 @@ module.exports = async (discordClient, twitchClient) => {
     }
   })
 
-  twitchClient.on('resub', (_channel, username, months, _message, userstate) => {
-    const streak = userstate['msg-param-streak-months'];
-
+  twitchClient.on('resub', (_channel, username, months, _message) => {
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
       let subMessage = `### 🎉 A new subscriber! __\`${username}\`__ just subscribed to the channel!`;
       if (months) {
         subMessage = `### ✨ Re-sub from __\`${username}\`__! This is their ${months} month in a row!`;
-        if (streak) {
-          subMessage += ` (Streak: ${streak} months)`;
-        }
       }
 
       discordChannel.send(subMessage)
