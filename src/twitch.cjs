@@ -19,7 +19,7 @@ module.exports = async (discordClient, twitchClient) => {
     if (discordChannel) {
       let subMessage = `### 🎉 A new subscriber! __\`${username}\`__ just subscribed to the channel!`;
       if (months) {
-        subMessage = `🎉 A new sub from __\`${username}\`__! This is their ${months} month in a row!`;
+        subMessage = `### 🎉 A new sub from __\`${username}\`__! This is their ${months} month in a row!`;
       }
 
       discordChannel.send(subMessage)
@@ -34,3 +34,16 @@ module.exports = async (discordClient, twitchClient) => {
     }
   })
 }
+
+twitchClient.on('subgift', (_channel, username, _streakMonths, recipient, _tags) => {
+  const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
+
+  if (discordChannel) {
+    const giftMessage = `### 🎁 __\`${username}\`__ just gifted a sub to __\`${recipient}\`__!`;
+
+    discordChannel.send(giftMessage)
+      .catch(error => console.error('Error relaying gift sub:', error));
+  } else {
+    console.error(`Error: Channel ${discordChannel} not found.`);
+  }
+});
