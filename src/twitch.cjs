@@ -17,9 +17,9 @@ module.exports = async (discordClient, twitchClient) => {
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
-      let subMessage = `### 🎉 A new subscriber! __\`${username}\`__ just subscribed to the channel!`;
+      let subMessage = `### 🎉 A new subscriber! \`${username}\` just subscribed to the channel!`;
       if (months) {
-        subMessage = `### ✨ Re-sub from __\`${username}\`__!`;
+        subMessage = `### ✨ Re-sub from \`${username}\`!`;
         if (streak) {
           subMessage += ` (Streak: ${streak} months)`;
         }
@@ -37,14 +37,12 @@ module.exports = async (discordClient, twitchClient) => {
     }
   })
 
-  twitchClient.on('resub', (_channel, username, months, _message) => {
+  twitchClient.on('resub', (_channel, username, _months, _message, userstate) => {
+    let cumulativeMonths = ~~userstate["msg-param-cumulative-months"];
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
-      let subMessage = `### 🎉 A new subscriber! __\`${username}\`__ just subscribed to the channel!`;
-      if (months) {
-        subMessage = `### ✨ Re-sub from __\`${username}\`__! This is their ${months} month in a row!`;
-      }
+      let subMessage = `### ✨ Re-sub from \`${username}\`! This is their ${cumulativeMonths} month in a row!`;
 
       discordChannel.send(subMessage)
         .then(() => {
@@ -62,7 +60,7 @@ module.exports = async (discordClient, twitchClient) => {
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
-      const giftMessage = `### 🎁 __\`${username}\`__ just gifted a sub to __\`${recipient}\`__!`;
+      const giftMessage = `### 🎁 \`${username}\` just gifted a sub to \`${recipient}\`!`;
 
       discordChannel.send(giftMessage)
         .catch(error => console.error('Error relaying gift sub:', error));
@@ -77,7 +75,7 @@ module.exports = async (discordClient, twitchClient) => {
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
-      const cheerMessage = `✨ __\`${username}\`__ just cheered with __${bits}__ bits! Message: "${message}"`;
+      const cheerMessage = `### ✨ \`${username}\` just cheered with __${bits}__ bits! Message: "${message}"`;
 
       discordChannel.send(cheerMessage)
         .catch(error => console.error('Error relaying cheer:', error));
@@ -91,7 +89,7 @@ module.exports = async (discordClient, twitchClient) => {
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
-      const raidMessage = `### 🚀 __\`${username}\`__ started a raid with __${viewers}__ viewers !`;
+      const raidMessage = `### 🚀 \`${username}\` started a raid with \_\_${viewers}\_\_ viewers !`;
 
       discordChannel.send(raidMessage)
         .catch(error => console.error('Error relaying raid:', error));
