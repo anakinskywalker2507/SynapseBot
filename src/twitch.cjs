@@ -1,8 +1,6 @@
-module.exports = async (discordClient, twitchClient) => {
+module.exports = async (discordChannel, twitchClient) => {
   twitchClient.on('message', (_channel, tags, message, self) => {
     if (self) return;
-
-    const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
       discordChannel.send(`\`${tags['display-name']}\` **(Twitch):** ${message}`);
@@ -14,8 +12,6 @@ module.exports = async (discordClient, twitchClient) => {
   twitchClient.on('subscription', (_channel, username, _method, _message, tags) => {
     const months = tags['msg-param-cumulative-months'];
     const streak = tags['msg-param-streak-months'];
-
-    const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
       let subMessage = `### 🎉 A new subscriber! __\`${username}\`__ just subscribed to the channel!`;
@@ -39,8 +35,6 @@ module.exports = async (discordClient, twitchClient) => {
   })
 
   twitchClient.on('subgift', (_channel, username, _streakMonths, recipient, _tags) => {
-    const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
-
     if (discordChannel) {
       const giftMessage = `### 🎁 __\`${username}\`__ just gifted a sub to __\`${recipient}\`__!`;
 
