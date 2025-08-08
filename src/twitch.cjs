@@ -1,23 +1,25 @@
 module.exports = async (discordClient, twitchClient) => {
-  twitchClient.on('message', (tags, message, self) => {
+  twitchClient.on('message', (_channel, tags, message, self) => {
     if (self) return;
 
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
-      discordChannel.send(`**${tags['display-name']}** (Twitch): ${message}`);
+      discordChannel.send(`\`${tags['display-name']}\` **(Twitch):** ${message}`);
+    } else {
+      console.error(`Error: Channel ${discordChannel} not found.`);
     }
   });
 
-  twitchClient.on('subscription', (username, tags) => {
+  twitchClient.on('subscription', (_channel, username, _method, _message, tags) => {
     const months = tags['msg-param-cumulative-months'];
 
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
-      let subMessage = `🎉 A new subscriber! **${username}** just subscribed to the channel!`;
+      let subMessage = `### 🎉 A new subscriber! __\`${username}\`__ just subscribed to the channel!`;
       if (months) {
-        subMessage = `🎉 A new sub from **${username}**! This is their ${months} month in a row!`;
+        subMessage = `🎉 A new sub from __\`${username}\`__! This is their ${months} month in a row!`;
       }
 
       discordChannel.send(subMessage)
@@ -26,7 +28,9 @@ module.exports = async (discordClient, twitchClient) => {
         })
         .catch(error => {
           console.error('Error relaying subscription to Discord:', error);
-        });
+        })
+    } else {
+      console.error(`Error: Channel ${discordChannel} not found.`);
     }
   })
 }
