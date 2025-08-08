@@ -5,6 +5,14 @@ module.exports = async (discordClient, twitchClient) => {
     console.log(`Connected to Twitch channel: ${process.env.TWITCH_CHANNEL}`);
 
     twitchClient.connect();
+
+    const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
+
+    if (discordChannel) {
+      discordChannel.send(`### Connected to ${process.env.TWITCH_CHANNEL}'s chat !`);
+    } else {
+      console.error(`Error: Channel ${discordChannel} not found.`);
+    }
   });
 
   discordClient.on('messageCreate', async message => {
