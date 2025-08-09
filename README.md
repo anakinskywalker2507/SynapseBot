@@ -9,11 +9,13 @@
 - [About](#about)
 - [Installation](#installation)
   - [Dependencies](#dependencies)
+  - [Discord Bot](#discord-bot)
+  - [Twitch App](#twitch-app)
   - [Initialization](#initialization)
 - [Usage](#usage)
   - [Twitch](#twitch)
   - [Bot](#bot)
-- [License](#license)
+- [Licence](#licence)
 
 ## About
 
@@ -26,6 +28,16 @@
 
 > [!IMPORTANT]
 > Make sure to have [Node.js](https://nodejs.org) & [npm](https://www.npmjs.com/) installed.
+
+### Discord Bot
+
+> [!IMPORTANT]
+> Make a Discord Bot on the [Discord Developper Portal](https://discord.com/developers/active-developer). Then, invite it to your Discord server.
+
+### Twitch App
+
+> [!IMPORTANT]
+> Make a Twitch App on the [Twitch Console](https://dev.twitch.tv/console). Then, make an oauth token in [Twitch Token Generator](https://twitchtokengenerator.com) (you must be connected with your App's account).
 
 ### Initialization
 
@@ -54,8 +66,8 @@ npm install
 
 ### Twitch
 
-> [!IMPORTANT]
-> Mod the app on your Twitch Chat.
+> [!TIP]
+> Mod the app on your Twitch Chat to make Twitch API prioritize the App (optionnal).
 
 ```
 /mod your-twitch-bot-username
