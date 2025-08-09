@@ -32,17 +32,21 @@
 ### Discord Bot
 
 > [!IMPORTANT]
-> Make a Discord Bot on the [Discord Developper Portal](https://discord.com/developers/active-developer). Then, invite it to your Discord server.
+> Make a Discord Bot on the [Discord Developper Portal](https://discord.com/developers/active-developer).
+>
+> Then, invite it to your Discord server.
 
 ### Twitch App
 
 > [!IMPORTANT]
-> Make a Twitch App on the [Twitch Console](https://dev.twitch.tv/console). Then, make an oauth token in [Twitch Token Generator](https://twitchtokengenerator.com) (you must be connected with your App's account).
+> Make a Twitch App on the [Twitch Console](https://dev.twitch.tv/console).
+>
+> Then, make an oauth token in [Twitch Token Generator](https://twitchtokengenerator.com) (you must be connected with your App's account).
 
 ### Initialization
 
 > [!NOTE]
-> Clone the repo somewhere, make a `.env` file at the root of the repository that contains the followig variables.
+> Clone the repo somewhere and make a `.env` file at the root of the repository that contains the followig variables.
 
 > [!TIP]
 > Exemple of a `.env` file :
