@@ -23,6 +23,7 @@ const discordClient = new Client({
 
 discordClient.commands = new Collection();
 discordClient.color = 0x1ec1e6;
+discordClient.prefix = "€"
 discordClient.login(process.env.DISCORD_BOT_TOKEN);
 
 loadEvents(discordClient, twitchClient);
