@@ -8,5 +8,9 @@ export const command = {
 
   async run(_, interaction) {
     await interaction.reply(`Pong: \`${Date.now() - interaction.createdTimestamp}\`ms`);
+  },
+
+  async msg(_, message) {
+    await message.reply(`Pong: \`${Date.now() - message.createdTimestamp}\`ms`);
   }
 }
