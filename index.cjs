@@ -3,6 +3,7 @@ const tmi = require('tmi.js');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const loadCommands = require("./src/loaders/loadCommands.cjs");
 const loadEvents = require("./src/loaders/loadEvents.cjs");
+const config = require("./config.json");
 
 const twitchClient = new tmi.Client({
   options: { debug: true },
@@ -22,8 +23,8 @@ const discordClient = new Client({
 });
 
 discordClient.commands = new Collection();
-discordClient.color = 0x1ec1e6;
-discordClient.prefix = "€"
+discordClient.color = config.color;
+discordClient.prefix = config.prefix;
 discordClient.login(process.env.DISCORD_BOT_TOKEN);
 
 loadEvents(discordClient, twitchClient);
