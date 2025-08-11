@@ -1,9 +1,7 @@
-const prefix = "€";
-
 module.exports = async (discordClient, twitchClient, message) => {
-  if (message.content.startsWith(prefix)) {
+  if (message.content.startsWith(discordClient.prefix)) {
     let messageArray = message.content.split(" ");
-    let commandName = messageArray[0].slice(prefix.length);
+    let commandName = messageArray[0].slice(discordClient.prefix.length);
     let args = messageArray.slice(1);
 
     let command;
