@@ -39,7 +39,7 @@ export const command = {
           iconURL: message.member.user.displayAvatarURL({ dynmaic: true })
         })
         .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
-        .setDescription(`Available commands: \`${bot.commands.size}\`\nAvailable categories: \`${categories.length}\``)
+        .setDescription(`Prefix: \`${bot.prefix}\`\nAvailable commands: \`${bot.commands.size}\`\nAvailable categories: \`${categories.length}\``)
         .setTimestamp()
         .setFooter({
           text: "/help",
