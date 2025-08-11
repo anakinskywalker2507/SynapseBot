@@ -1,8 +1,8 @@
 require('dotenv').config();
 const tmi = require('tmi.js');
-const { Client, GatewayIntentBits } = require('discord.js');
-const discord = require('./src/discord.cjs');
-const twitch = require('./src/twitch.cjs');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const loadCommands = require("./src/loaders/loadCommands.cjs");
+const loadEvents = require("./src/loaders/loadEvents.cjs");
 
 const twitchClient = new tmi.Client({
   options: { debug: true },
@@ -21,7 +21,9 @@ const discordClient = new Client({
   ]
 });
 
-discord(discordClient, twitchClient);
-twitch(discordClient, twitchClient);
-
+discordClient.commands = new Collection();
+discordClient.color = 0x1ec1e6;
 discordClient.login(process.env.DISCORD_BOT_TOKEN);
+
+loadEvents(discordClient, twitchClient);
+loadCommands(discordClient);
