@@ -1,23 +1,23 @@
 module.exports = async (discordClient, twitchClient) => {
-  twitchClient.on('message', (_channel, tags, message, self) => {
+  twitchClient.on('message', (channel, tags, message, self) => {
     if (self) return;
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
-      discordChannel.send(`\`${tags['display-name']}\` **(Twitch):** ${message}`);
+      discordChannel.send(`\`${tags['display-name']}\` **(\`${channel}\`):** ${message}`);
     } else {
       console.error(`Error: Channel ${discordChannel} not found.`);
     }
   });
 
-  twitchClient.on('subscription', (_channel, username, _method, _message, tags) => {
+  twitchClient.on('subscription', (channel, username, _method, _message, tags) => {
     const months = tags['msg-param-cumulative-months'];
     const streak = tags['msg-param-streak-months'];
 
     const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
     if (discordChannel) {
-      let subMessage = `### 🎉 A new subscriber! \`${username}\` just subscribed to the channel!`;
+      let subMessage = `### 🎉 A new subscriber! \`${username}\` just subscribed to \`${channel}\`!`;
       if (months) {
         subMessage = `### ✨ Re-sub from \`${username}\`!`;
         if (streak) {
