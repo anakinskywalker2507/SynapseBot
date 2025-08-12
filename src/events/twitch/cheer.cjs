@@ -1,4 +1,4 @@
-module.exports = async (discordClient, userstate, message) => {
+module.exports = async (discordClient, _channel, userstate, message) => {
   const username = userstate['display-name'];
   const bits = userstate.bits;
   const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
