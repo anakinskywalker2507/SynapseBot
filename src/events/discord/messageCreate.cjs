@@ -12,7 +12,7 @@ module.exports = async (discordClient, twitchClient, message) => {
       message.reply(`Error: \"${commandName}\" No such command.`);
     }
   } else if (message.channel.id === process.env.DISCORD_CHANNEL_ID && !message.author.bot) {
-    const twitchMessage = `${message.author.tag} (Discord): ${message.content}`;
+    const twitchMessage = `~Discord~ ${message.author.tag}: ${message.content}`;
 
     twitchClient.say(process.env.TWITCH_CHANNEL, twitchMessage)
       .then(() => {
