@@ -1,4 +1,4 @@
-module.exports = async (discordClient, channel, username, _userstate) => {
+module.exports = async (discordClient, _twitchClient, channel, username, _userstate) => {
   const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
   if (discordChannel) {
