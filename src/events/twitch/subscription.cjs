@@ -1,4 +1,4 @@
-module.exports = async (discordClient, channel, username, tags) => {
+module.exports = async (discordClient, channel, username, _method, _message, tags) => {
   const months = tags['msg-param-cumulative-months'];
   const streak = tags['msg-param-streak-months'];
 
