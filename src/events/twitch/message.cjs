@@ -1,5 +1,5 @@
 module.exports = async (discordClient, twitchClient, channel, tags, message, self) => {
-  if (self) return;
+  if (self && message.startsWith("~")) return;
   const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
   if (discordChannel) {
