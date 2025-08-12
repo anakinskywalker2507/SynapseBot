@@ -14,6 +14,9 @@ const twitchClient = new tmi.Client({
   channels: [process.env.TWITCH_CHANNEL]
 });
 
+twitchClient.commands = new Collection();
+twitchClient.prefix = config.twitchPrefix;
+
 const discordClient = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -24,8 +27,8 @@ const discordClient = new Client({
 
 discordClient.commands = new Collection();
 discordClient.color = config.color;
-discordClient.prefix = config.prefix;
+discordClient.prefix = config.discordPrefix;
 discordClient.login(process.env.DISCORD_BOT_TOKEN);
 
 loadEvents(discordClient, twitchClient);
-loadCommands(discordClient);
+loadCommands(discordClient, twitchClient);
