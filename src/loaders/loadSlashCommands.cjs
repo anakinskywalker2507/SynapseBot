@@ -5,7 +5,7 @@ const { Routes } = require("discord.js");
 module.exports = async discordClient => {
   let commands = [];
 
-  console.log("[⏳]\x1b[33mSlash Commands Loading...\x1b[0m")
+  console.log("[⏳]\x1b[33mDiscord Slash Commands Loading...\x1b[0m")
   discordClient.commands.forEach(async command => {
     let slashcommand = new Discord.SlashCommandBuilder()
       .setName(command.name)
