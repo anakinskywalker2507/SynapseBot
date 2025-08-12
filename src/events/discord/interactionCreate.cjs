@@ -13,7 +13,7 @@ module.exports = async (discordClient, _twitchClient, interaction) => {
   }
 
   if (interaction.type === Discord.InteractionType.ApplicationCommand) {
-    let command = require(`../../cmds/${interaction.commandName}.mjs`).command;
+    let command = require(`../../cmds/discord/${interaction.commandName}.mjs`).command;
     try {
       command.run(discordClient, interaction, interaction.options);
     } catch {
