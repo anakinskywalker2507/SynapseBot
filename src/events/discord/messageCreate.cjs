@@ -6,7 +6,7 @@ module.exports = async (discordClient, twitchClient, message) => {
 
     let command;
     try {
-      command = require(`../../cmds/${commandName}.mjs`).command;
+      command = require(`../../cmds/discord/${commandName}.mjs`).command;
       command.msg(discordClient, message, args);
     } catch {
       message.reply(`Error: \"${commandName}\" No such command.`);
