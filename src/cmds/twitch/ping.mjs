@@ -5,7 +5,7 @@ export const command = {
   async run(twitchClient) {
     twitchClient.ping()
       .then((data) => {
-        const twitchMessage = `Pong: \`${data}\`ms`;
+        const twitchMessage = `Pong: ${data}ms`;
 
         twitchClient.say(process.env.TWITCH_CHANNEL, twitchMessage)
           .then(() => {
