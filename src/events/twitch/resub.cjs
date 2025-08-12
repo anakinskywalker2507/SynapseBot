@@ -1,4 +1,4 @@
-module.exports = async (discordClient, _channel, username, _months, _message, userstate) => {
+module.exports = async (discordClient, _twitchClient, _channel, username, _months, _message, userstate) => {
   let cumulativeMonths = ~~userstate["msg-param-cumulative-months"];
   const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
 
