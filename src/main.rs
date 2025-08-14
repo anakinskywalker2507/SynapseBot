@@ -1,26 +1,14 @@
-use chrono::{TimeZone, Utc};
+mod cmds;
+use cmds::ping;
+
 use poise::serenity_prelude as serenity;
 use std::env;
 
-struct Data {}
+pub struct Data {}
 
-type Error = Box<dyn std::error::Error + Send + Sync>;
+pub type Error = Box<dyn std::error::Error + Send + Sync>;
 
-type Context<'a> = poise::Context<'a, Data, Error>;
-
-#[poise::command(slash_command, prefix_command)]
-async fn ping(ctx: Context<'_>) -> Result<(), Error> {
-    let gateway_latency = ctx.ping().await.as_millis();
-    let interaction_timestamp = ctx.created_at();
-    let now = Utc::now();
-    let latency = now.signed_duration_since(*interaction_timestamp);
-    let latency_ms = latency.num_milliseconds();
-
-    let response =
-        format!("Pong !\nGateway latency: `{gateway_latency}ms`\nUser Latency: `{latency_ms}ms`");
-    ctx.say(response).await?;
-    Ok(())
-}
+pub type Context<'a> = poise::Context<'a, Data, Error>;
 
 #[tokio::main]
 async fn main() {
@@ -34,7 +22,7 @@ async fn main() {
     let discord_token =
         env::var("DISCORD_BOT_TOKEN").expect("Expected a DISCORD_BOT_TOKEN environment variable.");
 
-    let commands = vec![ping()];
+    let commands = vec![ping::ping()];
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
