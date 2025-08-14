@@ -1,0 +1,4 @@
+[tasks.run]
+description = "Run unoptimized program"
+command = "cargo"
+args = ["watch", "-x", "run"]
