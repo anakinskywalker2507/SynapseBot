@@ -15,7 +15,6 @@ pub type Context<'a> = poise::Context<'a, Data, Error>;
 #[derive(Deserialize, Debug)]
 struct Config {
     discord_prefix: String,
-    twitch_prefix: String,
     color: [u8; 3],
 }
 
