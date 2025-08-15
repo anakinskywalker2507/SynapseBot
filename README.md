@@ -30,7 +30,7 @@
 ### Dependencies
 
 > [!IMPORTANT]
-> Make sure to have [Node.js](https://nodejs.org) & [npm](https://www.npmjs.com/) installed.
+> Make sure to have [Rust](https://www.rust-lang.org/tools/install) installed.
 
 ### Discord Bot
 
@@ -63,10 +63,10 @@ DISCORD_CHANNEL_ID="your-discord-channel-id"
 ```
 
 > [!NOTE]
-> Install dependencies with npm.
+> Compile the binary with [Cargo](https://doc.rust-lang.org/cargo/).
 
 ```bash
-npm install
+cargo build --release
 ```
 
 ## Usage
@@ -83,10 +83,17 @@ npm install
 ### Bot
 
 > [!NOTE]
-> Start both the Twitch App & Discord Bot with npm.
+> Run both the Twitch App & Discord Bot with [Cargo](https://doc.rust-lang.org/cargo/) after building it, or execute the binary.
 
+Cargo :
 ```bash
-npm run start
+cargo run --release
+```
+
+Binary :
+```bash
+chmod +x /path/to/repo/target/release/SynapseBot
+/path/to/repo/target/release/SynapseBot
 ```
 
 ## Licence
