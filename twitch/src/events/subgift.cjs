@@ -1,12 +1,8 @@
-module.exports = async (_twitchClient, _channel, username, _streakMonths, recipient, _tags) => {
-  const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
-
-  if (discordChannel) {
-    const giftMessage = `### 🎁 \`${username}\` just gifted a sub to \`${recipient}\`!`;
-
-    discordChannel.send(giftMessage)
-      .catch(error => console.error('Error relaying gift sub:', error));
-  } else {
-    console.error(`Error: Channel ${discordChannel} not found.`);
-  }
+module.exports = async (twitchClient, channel, username, streakMonths, recipient, tags) => {
+  const payload = JSON.stringify({
+    eventType: 'subgift',
+    data: { channel, username, streakMonths, recipient, tags }
+  });
+  twitchClient.redisClient.publish(twitchClient.channel, payload);
+  console.log(`[Redis] Published subgift event to ${twitchClient.channel}`);
 }

@@ -77,6 +77,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
         .framework(framework)
         .event_handler(Handler)
         .await;
+
+    let redis_url = "redis://redis:6379";
+    tokio::spawn(async move {
+        if let Err(e) = events::twitch::start_redis_listener(redis_url).await {
+            eprintln!("Redis listener error: {e}");
+        }
+    });
+
     if let Err(why) = discord_client.unwrap().start().await {
         println!("Client error: {why:?}");
     }
