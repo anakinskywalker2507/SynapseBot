@@ -1,8 +1,9 @@
-use poise::serenity_prelude as serenity;
+use poise::serenity_prelude::{self as serenity, EventHandler};
 use serde::Deserialize;
 use std::{env, fs, path::Path};
 
 mod cmds;
+mod events;
 
 pub struct Data {
     color: (u8, u8, u8),
@@ -22,6 +23,17 @@ fn load_config<P: AsRef<Path>>(path: P) -> Result<Config, Box<dyn std::error::Er
     let file_contents = fs::read_to_string(path)?;
     let config: Config = serde_json::from_str(&file_contents)?;
     Ok(config)
+}
+
+struct Handler;
+
+#[poise::async_trait]
+impl EventHandler for Handler {
+    async fn message(&self, ctx: serenity::Context, new_message: serenity::Message) {
+        if new_message.author.id != ctx.cache.current_user().id {
+            events::message_create::message_create(new_message).await;
+        }
+    }
 }
 
 #[tokio::main]
@@ -59,11 +71,13 @@ async fn main() {
         })
         .build();
 
-    let intents =
-        serenity::GatewayIntents::non_privileged() | serenity::GatewayIntents::MESSAGE_CONTENT;
+    let intents = serenity::GatewayIntents::non_privileged()
+        | serenity::GatewayIntents::MESSAGE_CONTENT
+        | serenity::GatewayIntents::GUILD_MESSAGES;
 
     let client = serenity::ClientBuilder::new(discord_token, intents)
         .framework(framework)
+        .event_handler(Handler)
         .await;
     if let Err(why) = client.unwrap().start().await {
         println!("Client error: {why:?}");
