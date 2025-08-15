@@ -5,12 +5,8 @@ use poise::{
     serenity_prelude::{self as serenity, CreateEmbed, CreateEmbedAuthor, CreateEmbedFooter},
 };
 
-#[poise::command(
-    slash_command,
-    prefix_command,
-    description_localized("en-US", "Displays Latency"),
-    description_localized("fr", "Affiche la Latence")
-)]
+/// Displays latency
+#[poise::command(slash_command, prefix_command, category = "Misc")]
 pub async fn ping(ctx: Context<'_>) -> Result<(), Error> {
     let gateway_latency = ctx.ping().await.as_millis();
 
