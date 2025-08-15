@@ -1,0 +1,42 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: synapse_redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    networks:
+      - synapse-network
+
+  discord_bot:
+    build:
+      context: ./discord
+      dockerfile: Dockerfile
+    container_name: synapse_discord_bot
+    restart: on-failure
+    depends_on:
+      - redis
+    env_file:
+      - ./.env
+    networks:
+      - synapse-network
+
+  twitch_app:
+    build:
+      context: ./twitch
+      dockerfile: Dockerfile
+    container_name: synapse_twitch_app
+    restart: on-failure
+    depends_on:
+      - redis
+      - discord_bot
+    env_file:
+      - ./.env
+    networks:
+      - synapse-network
+
+networks:
+  synapse-network:
+    driver: bridge

@@ -37,20 +37,18 @@ impl EventHandler for Handler {
 }
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>> {
     tracing_subscriber::fmt::init();
     dotenvy::dotenv().ok();
 
-    let _twitch_username = env::var("TWITCH_BOT_USERNAME")
-        .expect("Expected a TWITCH_BOT_USERNAME environment variable.");
-    let _twitch_token = env::var("TWITCH_OAUTH_TOKEN")
-        .expect("Expected a TWITCH_OAUTH_TOKEN environment variable.");
+    println!("Loading discord bot...");
+
     let discord_token =
         env::var("DISCORD_BOT_TOKEN").expect("Expected a DISCORD_BOT_TOKEN environment variable.");
 
     let commands = cmds::get_all_commands();
 
-    let config = load_config("config.json").expect("Failed to load config.json");
+    let config = load_config("./config.json").expect("Failed to load config.json");
 
     let color = (config.color[0], config.color[1], config.color[2]);
 
@@ -75,11 +73,12 @@ async fn main() {
         | serenity::GatewayIntents::MESSAGE_CONTENT
         | serenity::GatewayIntents::GUILD_MESSAGES;
 
-    let client = serenity::ClientBuilder::new(discord_token, intents)
+    let discord_client = serenity::ClientBuilder::new(discord_token, intents)
         .framework(framework)
         .event_handler(Handler)
         .await;
-    if let Err(why) = client.unwrap().start().await {
+    if let Err(why) = discord_client.unwrap().start().await {
         println!("Client error: {why:?}");
     }
+    Ok(())
 }
