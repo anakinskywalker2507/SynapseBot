@@ -22,6 +22,9 @@
 > [!NOTE]
 > A Twitch App & Discord Bot that links Twich Chat with a Discord Channel
 
+> [!CAUTION]
+> I'm currently changing to Rust, go to the JS branch if you want to use it correctly.
+
 ## Installation
 
 ### Dependencies

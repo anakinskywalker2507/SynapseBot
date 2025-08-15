@@ -1,5 +1,9 @@
 {
-  "discordPrefix": "&/",
-  "twitchPrefix": "&/",
-  "color": "#7289DA"
+  "discord_prefix": "&/",
+  "twitch_prefix": "&/",
+  "color": [
+    114,
+    137,
+    218
+  ]
 }
