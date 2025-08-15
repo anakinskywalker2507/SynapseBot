@@ -4,7 +4,7 @@ const loadCommands = require("./src/loaders/loadCommands.cjs");
 const loadEvents = require("./src/loaders/loadEvents.cjs");
 const config = require("./config.json");
 
-const twitchClient = new tmi.Client({
+const client = new tmi.Client({
   options: { debug: true },
   identity: {
     username: process.env.TWITCH_BOT_USERNAME,
@@ -13,8 +13,14 @@ const twitchClient = new tmi.Client({
   channels: [process.env.TWITCH_CHANNEL]
 });
 
-twitchClient.commands = new Collection();
-twitchClient.prefix = config.twitchPrefix;
+client.commands = [];
+client.prefix = config.twitchPrefix;
 
-loadEvents(twitchClient);
-loadCommands(twitchClient);
+loadEvents(client);
+loadCommands(client);
+
+client.on('connected', (address, port) => {
+  console.log(`[Twitch Bot] Connected to ${address}:${port}`);
+});
+
+client.connect();
