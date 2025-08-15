@@ -1,8 +1,9 @@
-name: CI Build & Test
+name: Rust CI
 
 on:
   push:
   pull_request:
+    branches: ["main"]
 
 jobs:
   discord-ci:

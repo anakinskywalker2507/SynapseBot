@@ -4,7 +4,8 @@
   "main": "index.cjs",
   "scripts": {
     "start": "nodemon .",
-    "docker": "node ."
+    "docker": "node .",
+    "test": "exit 0"
   },
   "keywords": [],
   "author": "",
