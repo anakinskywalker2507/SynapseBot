@@ -1,17 +1,8 @@
-module.exports = async (_twitchClient, channel, username, _userstate) => {
-  const discordChannel = discordClient.channels.cache.get(process.env.DISCORD_CHANNEL_ID);
-
-  if (discordChannel) {
-    let subMessage = `### 🎉 A new subscriber! \`${username}\` just subscribed to \`${channel}\`!`;
-
-    discordChannel.send(subMessage)
-      .then(() => {
-        console.log(`Relayed subscription notification to Discord: "${subMessage}"`);
-      })
-      .catch(error => {
-        console.error('Error relaying subscription to Discord:', error);
-      })
-  } else {
-    console.error(`Error: Channel ${discordChannel} not found.`);
-  }
+module.exports = async (twitchClient, channel, username, userstate) => {
+  const payload = JSON.stringify({
+    eventType: 'anongiftpaidupdate',
+    data: { channel, userstate, giftCount }
+  });
+  twitchClient.redisClient.publish(twitchClient.channel, payload);
+  console.log(`[Redis] Published anongiftpaidupdate event to ${twitchClient.channel}`);
 }
