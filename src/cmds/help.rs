@@ -48,10 +48,10 @@ pub async fn help(
         };
 
         cmds.iter().for_each(|c| {
-            if let Some(category) = c.category.to_owned() {
-                if !categories.contains(&category) {
-                    categories.push(category)
-                }
+            if let Some(category) = c.category.to_owned()
+                && !categories.contains(&category)
+            {
+                categories.push(category)
             }
         });
 
