@@ -41,12 +41,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
     tracing_subscriber::fmt::init();
     dotenvy::dotenv().ok();
 
+    println!("Loading discord bot...");
+
     let discord_token =
         env::var("DISCORD_BOT_TOKEN").expect("Expected a DISCORD_BOT_TOKEN environment variable.");
 
     let commands = cmds::get_all_commands();
 
-    let config = load_config("config.json").expect("Failed to load config.json");
+    let config = load_config("./config.json").expect("Failed to load config.json");
 
     let color = (config.color[0], config.color[1], config.color[2]);
 
