@@ -1,9 +1,10 @@
 {
   "name": "twitch",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.cjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon .",
+    "docker": "node ."
   },
   "keywords": [],
   "author": "",
