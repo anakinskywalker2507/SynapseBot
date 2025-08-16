@@ -27,7 +27,7 @@ client.prefix = config.twitchPrefix;
 client.channel = 'twitch_events';
 client.redisClient = redisClient;
 
-redisEvents(redisClient);
+redisEvents(client, new Redis(redisUrl));
 loadEvents(client);
 loadCommands(client);
 
