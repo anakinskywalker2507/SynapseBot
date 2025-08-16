@@ -36,8 +36,8 @@ pub async fn resub_event(http_client: &serenity::Http, event: TwitchEvent) -> Re
     let cumulative_months = cm.as_str().unwrap_or("Error: No Cumulative Months");
 
     let msg = format!(
-        "### ✨ Re-sub from `{username}`! This is their {cumulative_months} month in a row to `{chan}`! Message: \"{}\"",
-        message.unwrap_or("No message.".into())
+        "### ✨ Re-sub from `{username}`! This is their `{cumulative_months}` month in a row to `{chan}`! \"{}\"",
+        message.unwrap_or("".into())
     );
 
     if let Err(e) = chann_id.say(&http_client, msg).await {
