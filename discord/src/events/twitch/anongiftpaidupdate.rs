@@ -35,7 +35,7 @@ pub async fn anongiftpaidupdate_event(
     let display_name = dn.as_str().unwrap_or("Error: No Name");
 
     let msg = format!(
-        "### 🎉 A new subscriber! Anonymous user subgifted `{display_name}` to `{chan}`! (Gift Count: `{gift_count}`)"
+        "### 🎉 A new subscriber! Anonymous user gifted `{display_name}` a sub to `{chan}`! (Gift Count: `{gift_count}`)"
     );
 
     if let Err(e) = chann_id.say(&http_client, msg).await {
