@@ -30,7 +30,7 @@ pub async fn subgift_event(http_client: &serenity::Http, event: TwitchEvent) -> 
         return Err(format!("{e:?}"));
     };
 
-    let msg = format!("### 🎁 `{username}` just subgifted `{recipient}` to `{chan}`!",);
+    let msg = format!("### 🎁 `{username}` just gifted `{recipient}` a sub to `{chan}`!",);
 
     if let Err(e) = chann_id.say(&http_client, msg).await {
         return Err(format!("{e:?}"));
