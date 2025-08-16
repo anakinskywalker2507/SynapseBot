@@ -78,10 +78,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
         .event_handler(Handler)
         .await;
 
-    let redis_url = "redis://redis:6379";
+    let redis_url = std::env::var("REDIS_URL").unwrap_or("redis://redis:6379".into());
+
     tokio::spawn(async move {
         if let Err(e) =
-            events::twitch::start_redis_listener(serenity::Http::new(&discord_token), redis_url)
+            events::twitch::start_redis_listener(serenity::Http::new(&discord_token), &redis_url)
                 .await
         {
             eprintln!("Redis listener error: {e}");
