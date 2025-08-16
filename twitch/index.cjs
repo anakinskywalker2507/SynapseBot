@@ -1,24 +1,17 @@
 require('dotenv').config();
 const tmi = require('tmi.js');
+
 const loadCommands = require("./src/loaders/loadCommands.cjs");
 const loadEvents = require("./src/loaders/loadEvents.cjs");
 const config = require("./config.json");
-const Redis = require('ioredis');
 
+const Redis = require('ioredis');
+const redisEvents = require("./src/redis.cjs");
 const redisUrl = process.env.REDIS_URL || 'redis://redis:6379';
 
-let redisClient = null;
-
 console.log('[⏳]Connecting to Redis...');
-redisClient = new Redis(redisUrl);
 
-redisClient.on('connect', () => {
-  console.log('[✅]Successfully connected to Redis.');
-});
-
-redisClient.on('error', (err) => {
-  console.error('[❌]Redis connection error:', err);
-});
+let redisClient = new Redis(redisUrl);
 
 const client = new tmi.Client({
   options: { debug: true },
@@ -34,11 +27,16 @@ client.prefix = config.twitchPrefix;
 client.channel = 'twitch_events';
 client.redisClient = redisClient;
 
+redisEvents(redisClient);
 loadEvents(client);
 loadCommands(client);
 
-client.on('connected', (address, port) => {
-  console.log(`[Twitch Bot] Connected to ${address}:${port}`);
-});
-
 client.connect();
+
+process.on("SIGINT", () => {
+  redisClient.quit();
+  console.log("Redis client disconnected.");
+  client.disconnect();
+  console.log("Twitch client disconnected.");
+  process.exit();
+});
