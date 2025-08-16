@@ -1,3 +1,6 @@
+> [!CAUTION]
+> I'm currently changing to Rust, go to the [JS branch](https://github.com/YetAnotherMechanicusEnjoyer/SynapseBot/tree/js) if you want to use it correctly.
+
 # Synapse Bot
 
 <p align="center">
@@ -14,7 +17,7 @@
   - [Initialization](#initialization)
 - [Usage](#usage)
   - [Twitch](#twitch)
-  - [Bot](#bot)
+  - [Docker](#docker)
 - [Licence](#licence)
 
 ## About
@@ -22,15 +25,12 @@
 > [!NOTE]
 > A Twitch App & Discord Bot that links Twich Chat with a Discord Channel
 
-> [!CAUTION]
-> I'm currently changing to Rust, go to the [JS](https://github.com/YetAnotherMechanicusEnjoyer/SynapseBot/tree/js) branch if you want to use it correctly.
-
 ## Installation
 
 ### Dependencies
 
 > [!IMPORTANT]
-> Make sure to have [Rust](https://www.rust-lang.org/tools/install) installed.
+> Make sure to have [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/) installed.
 
 ### Discord Bot
 
@@ -62,13 +62,6 @@ DISCORD_BOT_TOKEN="your-discord-bot-token"
 DISCORD_CHANNEL_ID="your-discord-channel-id"
 ```
 
-> [!NOTE]
-> Compile the binary with [Cargo](https://doc.rust-lang.org/cargo/).
-
-```bash
-cargo build --release
-```
-
 ## Usage
 
 ### Twitch
@@ -80,20 +73,14 @@ cargo build --release
 /mod your-twitch-bot-username
 ```
 
-### Bot
+### Docker
 
 > [!NOTE]
-> Run both the Twitch App & Discord Bot with [Cargo](https://doc.rust-lang.org/cargo/) after building it, or execute the binary.
+> Run both the Twitch App & Discord Bot with [Docker Compose](https://docs.docker.com/compose/).
 
 Cargo :
 ```bash
-cargo run --release
-```
-
-Binary :
-```bash
-chmod +x /path/to/repo/target/release/SynapseBot
-/path/to/repo/target/release/SynapseBot
+docker-compose up
 ```
 
 ## Licence
