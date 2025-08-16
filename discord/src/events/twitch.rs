@@ -98,16 +98,16 @@ pub async fn start_redis_listener(http_client: serenity::Http, redis_url: &str) 
                     let _ = message::message_event(&http_client, event).await;
                 }
                 "raided" => {
-                    println!("Raid detected");
+                    let _ = raided::raided_event(&http_client, event).await;
                 }
                 "resub" => {
-                    println!("Resub detected");
+                    let _ = resub::resub_event(&http_client, event).await;
                 }
                 "subgift" => {
-                    println!("Subgift detected");
+                    let _ = subgift::subgift_event(&http_client, event).await;
                 }
                 "subscription" => {
-                    println!("Subscription detected");
+                    let _ = subscription::subgift_event(&http_client, event).await;
                 }
                 _ => {
                     println!("Unknown event detected");
