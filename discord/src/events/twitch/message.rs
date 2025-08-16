@@ -40,7 +40,7 @@ pub async fn message_event(http_client: &serenity::Http, msg: TwitchEvent) -> Re
         None => "No message".into(),
     };
 
-    let msg = format!("`{display_name}` **(`{chan}`):** {msg}");
+    let msg = format!("**(`{chan}`)** `{display_name}`: {msg}");
 
     if let Err(e) = chann_id.say(&http_client, msg).await {
         return Err(format!("{e:?}"));
