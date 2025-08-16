@@ -78,7 +78,6 @@ DISCORD_CHANNEL_ID="your-discord-channel-id"
 > [!NOTE]
 > Run both the Twitch App & Discord Bot with [Docker Compose](https://docs.docker.com/compose/).
 
-Cargo :
 ```bash
 docker-compose up
 ```
