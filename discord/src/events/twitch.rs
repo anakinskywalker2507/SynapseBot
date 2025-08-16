@@ -1,7 +1,9 @@
-use poise::serenity_prelude::futures::StreamExt;
+use poise::serenity_prelude::{self as serenity, futures::StreamExt};
 use redis::RedisResult;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+
+mod message;
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -60,7 +62,7 @@ pub struct TwitchEvent {
     pub data: TwitchEventData,
 }
 
-pub async fn start_redis_listener(redis_url: &str) -> RedisResult<()> {
+pub async fn start_redis_listener(http_client: serenity::Http, redis_url: &str) -> RedisResult<()> {
     let client = redis::Client::open(redis_url)?;
     let mut conn = client.get_async_pubsub().await?;
 
@@ -71,10 +73,13 @@ pub async fn start_redis_listener(redis_url: &str) -> RedisResult<()> {
 
     while let Some(msg) = pubsub_stream.next().await {
         let payload: String = msg.get_payload()?;
-        println!("[Redis Listener] Received message: {payload}");
+        println!("[Redis Listener] Received message");
 
         if let Ok(event) = serde_json::from_str::<TwitchEvent>(&payload) {
-            println!("[Redis Listener] Parsed Event: {event:?}");
+            println!(
+                "[Redis Listener] Parsed Event: {}",
+                event.event_type.as_str()
+            );
 
             match event.event_type.as_str() {
                 "anongiftpaidupdate" => {
@@ -84,7 +89,7 @@ pub async fn start_redis_listener(redis_url: &str) -> RedisResult<()> {
                     println!("Cheer detected");
                 }
                 "message" => {
-                    println!("Message detected");
+                    let _ = message::message_event(&http_client, event).await;
                 }
                 "raided" => {
                     println!("Raid detected");

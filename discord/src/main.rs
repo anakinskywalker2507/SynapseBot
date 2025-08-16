@@ -73,14 +73,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
         | serenity::GatewayIntents::MESSAGE_CONTENT
         | serenity::GatewayIntents::GUILD_MESSAGES;
 
-    let discord_client = serenity::ClientBuilder::new(discord_token, intents)
+    let discord_client = serenity::ClientBuilder::new(&discord_token, intents)
         .framework(framework)
         .event_handler(Handler)
         .await;
 
     let redis_url = "redis://redis:6379";
     tokio::spawn(async move {
-        if let Err(e) = events::twitch::start_redis_listener(redis_url).await {
+        if let Err(e) =
+            events::twitch::start_redis_listener(serenity::Http::new(&discord_token), redis_url)
+                .await
+        {
             eprintln!("Redis listener error: {e}");
         }
     });
