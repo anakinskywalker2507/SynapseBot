@@ -34,9 +34,9 @@ pub async fn message_create(msg: Message) {
         };
 
         let redis_channel_name = "discord_messages";
-        let message_to_publish = &msg.content;
+        let message_to_publish = format!("{}|{}", msg.content, msg.author.name);
 
-        let result: RedisResult<()> = con.publish(redis_channel_name, message_to_publish).await;
+        let result: RedisResult<()> = con.publish(redis_channel_name, &message_to_publish).await;
 
         if let Err(e) = result {
             eprintln!("Failed to publish message to Redis: {e}");
