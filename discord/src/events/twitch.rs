@@ -73,10 +73,13 @@ pub async fn start_redis_listener(http_client: serenity::Http, redis_url: &str) 
 
     while let Some(msg) = pubsub_stream.next().await {
         let payload: String = msg.get_payload()?;
-        println!("[Redis Listener] Received message: {payload}");
+        println!("[Redis Listener] Received message");
 
         if let Ok(event) = serde_json::from_str::<TwitchEvent>(&payload) {
-            println!("[Redis Listener] Parsed Event: {event:?}");
+            println!(
+                "[Redis Listener] Parsed Event: {}",
+                event.event_type.as_str()
+            );
 
             match event.event_type.as_str() {
                 "anongiftpaidupdate" => {
