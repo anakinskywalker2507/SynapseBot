@@ -14,12 +14,12 @@ pub type Error = Box<dyn std::error::Error + Send + Sync>;
 pub type Context<'a> = poise::Context<'a, Data, Error>;
 
 #[derive(Deserialize, Debug)]
-struct Config {
+pub struct Config {
     discord_prefix: String,
     color: [u8; 3],
 }
 
-fn load_config<P: AsRef<Path>>(path: P) -> Result<Config, Box<dyn std::error::Error>> {
+pub fn load_config<P: AsRef<Path>>(path: P) -> Result<Config, Box<dyn std::error::Error>> {
     let file_contents = fs::read_to_string(path)?;
     let config: Config = serde_json::from_str(&file_contents)?;
     Ok(config)
