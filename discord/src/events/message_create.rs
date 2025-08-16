@@ -1,7 +1,16 @@
+use crate::load_config;
 use poise::serenity_prelude::Message;
 use redis::{AsyncCommands, Client, RedisResult};
 
 pub async fn message_create(msg: Message) {
+    let prefix = load_config("./config.json")
+        .expect("Failed to load config.json")
+        .discord_prefix;
+
+    if msg.author.bot || msg.content.starts_with(&prefix) {
+        return;
+    }
+
     let channel = std::env::var("DISCORD_CHANNEL_ID")
         .expect("Expected a TWITCH_BOT_USERNAME environment variable.");
 
