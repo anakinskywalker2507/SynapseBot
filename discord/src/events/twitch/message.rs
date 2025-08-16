@@ -2,12 +2,12 @@ use super::TwitchEvent;
 use crate::events::twitch::TwitchEventData;
 use poise::serenity_prelude::{self as serenity, ChannelId};
 
-pub async fn message_event(http_client: &serenity::Http, msg: TwitchEvent) -> Result<(), String> {
+pub async fn message_event(http_client: &serenity::Http, event: TwitchEvent) -> Result<(), String> {
     let chan;
     let mut tags;
     let message;
 
-    match msg.data {
+    match event.data {
         TwitchEventData::Message {
             channel: c,
             tags: t,
