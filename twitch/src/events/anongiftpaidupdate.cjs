@@ -1,4 +1,4 @@
-module.exports = async (twitchClient, channel, username, userstate) => {
+module.exports = async (twitchClient, channel, userstate, giftCount) => {
   const payload = JSON.stringify({
     eventType: 'anongiftpaidupdate',
     data: { channel, userstate, giftCount }

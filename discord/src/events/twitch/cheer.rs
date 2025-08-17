@@ -2,24 +2,23 @@ use super::TwitchEvent;
 use crate::events::twitch::TwitchEventData;
 use poise::serenity_prelude::{self as serenity, ChannelId};
 
-pub async fn message_event(http_client: &serenity::Http, event: TwitchEvent) -> Result<(), String> {
+pub async fn cheer_event(http_client: &serenity::Http, event: TwitchEvent) -> Result<(), String> {
     let chan;
-    let mut tags;
+    let mut userstate;
     let message;
+    let bits;
 
     match event.data {
-        TwitchEventData::Message {
+        TwitchEventData::Cheer {
             channel: c,
-            tags: t,
+            userstate: u,
             message: m,
-            is_self,
+            bits: b,
         } => {
-            if is_self && m.clone().is_some_and(|m| m.starts_with("~")) {
-                return Ok(());
-            }
             chan = c;
-            tags = t;
+            userstate = u;
             message = m;
+            bits = b;
         }
         _ => return Err(String::from("TwitchEventData is not of type 'Message'")),
     };
@@ -32,15 +31,12 @@ pub async fn message_event(http_client: &serenity::Http, event: TwitchEvent) -> 
         return Err(format!("{e:?}"));
     };
 
-    let dn = tags["display-name"].take();
+    let dn = userstate["display-name"].take();
     let display_name = dn.as_str().unwrap_or("Error: No Name");
 
-    let msg = match message {
-        Some(m) => m,
-        None => "No message".into(),
-    };
-
-    let msg = format!("**(`{chan}`)** `{display_name}`: {msg}");
+    let msg = format!(
+        "### ✨ `{display_name}` just cheered with __{bits}__ bits to `{chan}`! Message: \"`{message}`\""
+    );
 
     if let Err(e) = chann_id.say(&http_client, msg).await {
         return Err(format!("{e:?}"));

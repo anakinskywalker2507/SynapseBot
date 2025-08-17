@@ -14,12 +14,12 @@ pub type Error = Box<dyn std::error::Error + Send + Sync>;
 pub type Context<'a> = poise::Context<'a, Data, Error>;
 
 #[derive(Deserialize, Debug)]
-struct Config {
+pub struct Config {
     discord_prefix: String,
     color: [u8; 3],
 }
 
-fn load_config<P: AsRef<Path>>(path: P) -> Result<Config, Box<dyn std::error::Error>> {
+pub fn load_config<P: AsRef<Path>>(path: P) -> Result<Config, Box<dyn std::error::Error>> {
     let file_contents = fs::read_to_string(path)?;
     let config: Config = serde_json::from_str(&file_contents)?;
     Ok(config)
@@ -78,10 +78,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync + 'static>
         .event_handler(Handler)
         .await;
 
-    let redis_url = "redis://redis:6379";
+    let redis_url = std::env::var("REDIS_URL").unwrap_or("redis://redis:6379".into());
+
     tokio::spawn(async move {
         if let Err(e) =
-            events::twitch::start_redis_listener(serenity::Http::new(&discord_token), redis_url)
+            events::twitch::start_redis_listener(serenity::Http::new(&discord_token), &redis_url)
                 .await
         {
             eprintln!("Redis listener error: {e}");

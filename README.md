@@ -1,3 +1,6 @@
+> [!CAUTION]
+> I'm currently changing to Rust, go to the [JS branch](https://github.com/YetAnotherMechanicusEnjoyer/SynapseBot/tree/js) if you want to use it correctly.
+
 # Synapse Bot
 
 <p align="center">
@@ -14,7 +17,7 @@
   - [Initialization](#initialization)
 - [Usage](#usage)
   - [Twitch](#twitch)
-  - [Bot](#bot)
+  - [Docker](#docker)
 - [Licence](#licence)
 
 ## About
@@ -22,15 +25,12 @@
 > [!NOTE]
 > A Twitch App & Discord Bot that links Twich Chat with a Discord Channel
 
-> [!CAUTION]
-> I'm currently changing to Rust, go to the [JS](https://github.com/YetAnotherMechanicusEnjoyer/SynapseBot/tree/js) branch if you want to use it correctly.
-
 ## Installation
 
 ### Dependencies
 
 > [!IMPORTANT]
-> Make sure to have [Node.js](https://nodejs.org) & [npm](https://www.npmjs.com/) installed.
+> Make sure to have [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/) installed.
 
 ### Discord Bot
 
@@ -62,13 +62,6 @@ DISCORD_BOT_TOKEN="your-discord-bot-token"
 DISCORD_CHANNEL_ID="your-discord-channel-id"
 ```
 
-> [!NOTE]
-> Install dependencies with npm.
-
-```bash
-npm install
-```
-
 ## Usage
 
 ### Twitch
@@ -80,13 +73,13 @@ npm install
 /mod your-twitch-bot-username
 ```
 
-### Bot
+### Docker
 
 > [!NOTE]
-> Start both the Twitch App & Discord Bot with npm.
+> Run both the Twitch App & Discord Bot with [Docker Compose](https://docs.docker.com/compose/).
 
 ```bash
-npm run start
+docker-compose up
 ```
 
 ## Licence
