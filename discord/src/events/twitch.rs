@@ -24,6 +24,7 @@ pub enum TwitchEventData {
         channel: String,
         userstate: Value,
         message: String,
+        bits: u32,
     },
     Message {
         channel: String,
