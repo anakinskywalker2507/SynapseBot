@@ -1,6 +1,3 @@
-> [!CAUTION]
-> I'm currently changing to Rust, go to the [JS branch](https://github.com/YetAnotherMechanicusEnjoyer/SynapseBot/tree/js) if you want to use it correctly.
-
 # Synapse Bot
 
 <p align="center">
@@ -24,6 +21,9 @@
 
 > [!NOTE]
 > A Twitch App & Discord Bot that links Twich Chat with a Discord Channel
+
+> [!WARNING]
+> This is the Rust version. If you want to see the JavaScript version, check the [JS branch](https://github.com/YetAnotherMechanicusEnjoyer/SynapseBot/tree/js).
 
 ## Installation
 
