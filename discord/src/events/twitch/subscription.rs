@@ -31,7 +31,7 @@ pub async fn subgift_event(http_client: &serenity::Http, event: TwitchEvent) -> 
     };
 
     let msg = format!(
-        "### 🎉 A new subscriber! `{username}` just subscribed to `{chan}`! \"{}\"",
+        "### 🎉 A new subscriber! `{username}` just subscribed to `{chan}`! \"`{}`\"",
         message.unwrap_or("".into())
     );
 
