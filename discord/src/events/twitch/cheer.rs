@@ -6,19 +6,16 @@ pub async fn cheer_event(http_client: &serenity::Http, event: TwitchEvent) -> Re
     let chan;
     let mut userstate;
     let message;
-    let bits;
 
     match event.data {
         TwitchEventData::Cheer {
             channel: c,
             userstate: u,
             message: m,
-            bits: b,
         } => {
             chan = c;
             userstate = u;
             message = m;
-            bits = b;
         }
         _ => return Err(String::from("TwitchEventData is not of type 'Message'")),
     };
@@ -32,7 +29,10 @@ pub async fn cheer_event(http_client: &serenity::Http, event: TwitchEvent) -> Re
     };
 
     let dn = userstate["display-name"].take();
-    let display_name = dn.as_str().unwrap_or("Error: No Name");
+    let display_name = dn.as_str().unwrap_or("Name Error");
+
+    let b = userstate["bits"].take();
+    let bits = b.as_str().unwrap_or("Bits Error");
 
     let msg = format!(
         "### ✨ `{display_name}` just cheered with __{bits}__ bits to `{chan}`! Message: \"`{message}`\""
